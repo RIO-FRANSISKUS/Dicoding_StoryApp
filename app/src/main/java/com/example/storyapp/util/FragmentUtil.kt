@@ -1,4 +1,4 @@
-package com.example.storyapp.ui.dashboard
+package com.example.storyapp.util
 
 import android.app.Activity
 import android.content.Intent

@@ -5,45 +5,59 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.storyapp.R
 import com.example.storyapp.apiNetwork.Resource
 import com.example.storyapp.apiNetwork.StoryApi
 import com.example.storyapp.databinding.FragmentDashboardBinding
 import com.example.storyapp.repository.StoryRepository
 import com.example.storyapp.ui.base.BaseFragment
 import com.example.storyapp.ui.base.StoryAdapter
+import com.example.storyapp.util.visible
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
 class DashboardFragment : BaseFragment<DashboardViewModel, FragmentDashboardBinding, StoryRepository>() {
 
     private lateinit var storyAdapter: StoryAdapter
-    val TAG = "DashboardAdapter"
+    private val TAG = "DashboardAdapter"
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.paginationProgressBar.visible(false)
         viewModel.getUserStories()
         setUpRecycleView()
 
+        storyAdapter.setOnItemClickListener {
+            val bundle = bundleOf("detailUserStory" to it)
+            findNavController().navigate(R.id.action_dashboardFragment_to_detalStoryFragment, bundle)
+        }
 
         viewModel.userStory.observe(viewLifecycleOwner){
             when (it){
                 is Resource.SucsessResponse -> {
+                    binding.paginationProgressBar.visible(false)
                     it.value.let {
                         storyAdapter.differ.submitList(it.listStory)
                     }
                 }
                 is Resource.FailResponse -> {
                     it.errorBody.let {
-                        val token = runBlocking { userPreferences.loginToken.first()}
-                        Log.e(TAG,token.toString() )
+                        Log.e(TAG, "error" )
                     }
                 }
-                else -> {
-                    Toast.makeText(requireContext(), "gagal", Toast.LENGTH_SHORT).show()
+
+                is Resource.Loading -> {
+                    binding.paginationProgressBar.visible(true)
                 }
+            }
+
+            binding.actionLogout.setOnClickListener{
+                showLogoutDialog()
             }
         }
     }
@@ -66,9 +80,10 @@ class DashboardFragment : BaseFragment<DashboardViewModel, FragmentDashboardBind
     ) =  FragmentDashboardBinding.inflate(inflater, container, false)
 
 
+
     override fun getRepository(): StoryRepository {
         val token = runBlocking { userPreferences.loginToken.first()}
-        val api = apiConfig.apiClient(StoryApi::class.java, token)
+        val api = apiConfig.apiClient(StoryApi::class.java,token)
         return StoryRepository(api)
     }
 

@@ -40,11 +40,12 @@ class StoryAdapter : RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {
             tvItemName.text = stories.name
         }
 
-        setOnItemClickListener {
+        binding.root.setOnClickListener{
             onItemClickListener?.let {
                 it(stories)
             }
         }
+
     }
 
     override fun getItemCount(): Int {

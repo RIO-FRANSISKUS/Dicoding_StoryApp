@@ -10,18 +10,20 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:alpha="0"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/homepage" />
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
@@ -38,6 +40,7 @@
         android:id="@+id/messageTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:text="@string/message_login_page"
@@ -52,6 +55,7 @@
         android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
 
@@ -76,6 +80,7 @@
             android:id="@+id/ed_login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:alpha="0"
             android:ems="10"
             android:inputType="textEmailAddress"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -85,6 +90,7 @@
         android:id="@+id/passwordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="@string/password"
@@ -92,44 +98,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditTextLayout" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordEditTextLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <com.example.storyapp.ui.customview.CustomEditText
+        android:id="@+id/ed_login_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextView"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            app:passwordToggleEnabled="true"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/password_warning"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
-        android:text="@string/password_warning"
-        android:textColor="@color/red"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintStart_toStartOf="@+id/passwordEditTextLayout"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout" />
+        android:layout_marginTop="5dp"
+        android:autofillHints="password"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:minHeight="57dp"
+        android:alpha="0"
+        app:layout_constraintEnd_toEndOf="@+id/emailEditTextLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emailEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextView" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="64dp"
+        android:alpha="0"
         android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
@@ -137,12 +125,13 @@
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_login_password" />
 
     <TextView
         android:id="@+id/messageTextViewRegister"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:layout_marginTop="20dp"
         android:text="@string/message_register_page"
         android:textColor="@color/black"
@@ -155,6 +144,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
+        android:alpha="0"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/ynavi"
         android:text="@string/register"
@@ -168,7 +158,7 @@
         android:layout_height="64dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.34"
+        app:layout_constraintGuide_begin="158dp"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline

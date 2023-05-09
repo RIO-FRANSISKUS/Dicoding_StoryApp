@@ -9,5 +9,32 @@
         android:id="@+id/dashboardFragment"
         android:name="com.example.storyapp.ui.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_detalStoryFragment"
+            app:destination="@id/detalStoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/detalStoryFragment"
+        android:name="com.example.storyapp.ui.detail.DetalStoryFragment"
+        android:label="fragment_detal_story"
+        tools:layout="@layout/fragment_detal_story" >
+        <argument
+            android:name="detailUserStory"
+            app:argType="com.example.storyapp.response.Story" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadStoryFragment"
+        android:name="com.example.storyapp.ui.upload.UploadStoryFragment"
+        android:label="fragment_upload_story"
+        tools:layout="@layout/fragment_upload_story" />
+    <fragment
+        android:id="@+id/mapStoryFragment"
+        android:name="com.example.storyapp.ui.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>

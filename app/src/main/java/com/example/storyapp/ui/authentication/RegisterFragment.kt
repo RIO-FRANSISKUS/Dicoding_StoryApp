@@ -5,18 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import com.example.storyapp.R
 import com.example.storyapp.apiNetwork.Resource
 import com.example.storyapp.apiNetwork.AuthenticationApi
-import com.example.storyapp.ui.dashboard.startNewActivity
+import com.example.storyapp.util.startNewActivity
 import com.example.storyapp.databinding.FragmentRegisterBinding
 import com.example.storyapp.repository.AuthenticationRepository
 import com.example.storyapp.ui.base.BaseFragment
+import com.example.storyapp.util.enable
+import com.example.storyapp.util.visible
 
 class RegisterFragment : BaseFragment<AuthenticationViewModel, FragmentRegisterBinding, AuthenticationRepository>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.registerProgressBar.visible(false)
+        binding.registerButton.enable(false)
 
         viewModel.registerResponse.observe(viewLifecycleOwner){
             when(it){
@@ -25,13 +31,24 @@ class RegisterFragment : BaseFragment<AuthenticationViewModel, FragmentRegisterB
                     requireActivity().startNewActivity(AuthenticationActivity::class.java)
                     Toast.makeText(requireContext(), R.string.register_result, Toast.LENGTH_SHORT).show()
                 }
-                else -> {
-                    Toast.makeText(requireContext(), "gagal", Toast.LENGTH_SHORT).show()
+                is Resource.FailResponse -> {
+                    Toast.makeText(requireContext(), "Gagal melakukan Registrasi", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Loading -> {
+                    binding.registerProgressBar.visible(true)
                 }
             }
         }
 
         binding.apply {
+            edRegisterPassword.addTextChangedListener {
+                val name = edRegisterName.text.toString().trim()
+                val email = edRegisterEmail.text.toString().trim()
+                val password = edRegisterPassword.text.toString().trim()
+
+                registerButton.enable(name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && (password.length > 7))
+            }
+
             registerButton.setOnClickListener{
                 val name = edRegisterName.text.toString().trim()
                 val email = edRegisterEmail.text.toString().trim()

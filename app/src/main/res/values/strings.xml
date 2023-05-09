@@ -15,4 +15,21 @@
     <string name="password_warning">Password tidak boleh dibawah 8 karakter</string>
     <string name="login_result">Login Berhasil</string>
     <string name="register_result">Pendaftaran Berhasil</string>
+    <string name="logout">logout</string>
+    <string name="story">Story</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="upload_story">Upload Story</string>
+    <string name="username">Username</string>
+    <string name="deskripsi_story">Deskripsi story</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="story_description">Masukkan Ceritamu Disini</string>
+    <string name="unggah">unggah</string>
+    <string name="upload_new_story">Upload New Story</string>
+    <string name="ayo_ceritakan_kisahmu">Ayo Ceritakan Kisahmu</string>
+    <string name="upload_sekarang">Upload Sekarang!</string>
+    <string name="map">Map</string>
+    <string name="lihat_story_di_sekitarmu">Lihat Story Di sekitarmu</string>
+    <string name="story_map">Story Map</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

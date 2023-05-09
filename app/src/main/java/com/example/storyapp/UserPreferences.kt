@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.storyapp.apiNetwork.ApiConfig
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -25,6 +26,16 @@ class UserPreferences constructor(context: Context) {
         userDataStore.edit { preferences ->
             preferences[LOGIN_TOKEN] = loginToken
         }
+    }
+
+    suspend fun clearUserLogin(){
+        userDataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
+
+    fun setToken(token: String) {
+        ApiConfig.setuploadToken(token)
     }
 
 }

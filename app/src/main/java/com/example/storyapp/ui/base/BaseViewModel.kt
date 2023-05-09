@@ -1,22 +1,17 @@
 package com.example.storyapp.ui.base
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.storyapp.ui.dashboard.DashboardViewModel
-import com.example.storyapp.repository.AuthenticationRepository
+import com.example.storyapp.apiNetwork.StoryApi
 import com.example.storyapp.repository.BaseRepository
-import com.example.storyapp.repository.StoryRepository
-import com.example.storyapp.ui.authentication.AuthenticationViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class BaseViewModel(
+abstract class BaseViewModel(
     private val repository: BaseRepository
-): ViewModelProvider.NewInstanceFactory() {
+): ViewModel() {
 
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return when{
-            modelClass.isAssignableFrom(AuthenticationViewModel::class.java) -> AuthenticationViewModel(repository as AuthenticationRepository) as T
-            modelClass.isAssignableFrom(DashboardViewModel::class.java) -> DashboardViewModel(repository as StoryRepository) as T
-            else -> throw java.lang.IllegalArgumentException("View Model Class NotFound")
-        }
-    }
+    suspend fun logout(
+        api: StoryApi
+    ) = withContext(Dispatchers.IO){repository.logout(api)}
+
 }
